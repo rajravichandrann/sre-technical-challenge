@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "sre-app.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "sre-app.name" . }}
+    helm.sh/chart: {{ include "sre-app.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "sre-app.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "sre-app.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      initContainers:
+        - name: migrate
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          env:
+          - name: SECRET_KEY_BASE
+            value: {{ .Values.env.SECRET_KEY_BASE }}
+          - name: DATABASE_URL
+            value: {{ .Values.env.DATABASE_URL }}
+          command: ["/app/bin/sre_technical_challenge"]
+          args: ["eval", "SreTechnicalChallenge.Release.migrate"]
+      containers:
+        - name: sre-technical-challenge
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.env.PORT }}
+              name: http
+          env:
+            - name: DATABASE_URL
+              value: {{ .Values.env.DATABASE_URL }}
+            - name: SECRET_KEY_BASE
+              value: {{ .Values.env.SECRET_KEY_BASE }}
+            - name: PHX_HOST
+              value: {{ .Values.env.PHX_HOST }}
+            - name: POOL_SIZE
+              value: "{{ .Values.env.POOL_SIZE }}"
+            - name: PORT
+              value: "{{ .Values.env.PORT }}"
+            - name: PHX_SERVER
+              value: "true"
+          command: ["/app/bin/sre_technical_challenge"]
+          args: ["start"]
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}

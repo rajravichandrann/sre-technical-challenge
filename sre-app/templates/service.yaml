@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sre-app-sre-technical-challenge
+  labels:
+    app.kubernetes.io/name: {{ include "sre-app.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  type: {{ .Values.service.type }}  # Will use 'ClusterIP' from values.yaml
+  ports:
+    - port: {{ .Values.service.port}}  # Expose port 80
+      targetPort: 8080                 # Forward to port 8080 in the pod
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "sre-app.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
