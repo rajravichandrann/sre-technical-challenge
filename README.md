@@ -57,5 +57,3 @@ Once the service is forwarded, open your browser and visit:
 Todos page: http://localhost:8080/todos
 Health check: http://localhost:8080/_health
 
-# Reference image
-![Todos Page](./images/sre-challenge.png)
