@@ -2,19 +2,6 @@
 
 This repository contains the Helm chart and configuration files required to deploy the **SRE Technical Challenge** project, which includes a Phoenix application (`ghcr.io/stordco/sre-technical-challenge:latest`) and a PostgreSQL database.
 
-## Table of Contents
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-  - [Step 1: Install PostgreSQL](#step-1-install-postgresql)
-  - [Step 2: Install the Phoenix Application](#step-2-install-the-phoenix-application)
-- [Validation](#validation)
-  - [Validate PostgreSQL](#validate-postgresql)
-  - [Validate the Phoenix Application](#validate-the-phoenix-application)
-- [Helm Chart Structure](#helm-chart-structure)
-- [Values Configuration](#values-configuration)
-
----
-
 ## Prerequisites
 
 - Kubernetes cluster (EKS or any Kubernetes environment)
