@@ -27,25 +27,27 @@ This repository contains the Helm chart and configuration files required to depl
 
 The following command will install PostgreSQL in the `stord` namespace using the Bitnami Helm chart. It also sets the database name and password according to the requirements.
 
-```bash
+```sh
 NAMESPACE=stord
 helm install sre-db oci://registry-1.docker.io/bitnamicharts/postgresql \
   --create-namespace \
   --namespace $NAMESPACE \
   --set auth.database=sre-technical-challenge \
-  --set auth.postgresPassword=password```
+  --set auth.postgresPassword=password
+  ```
 
 This will create the PostgreSQL database, which is required for the Phoenix application.
 
 Step 2: Install the Phoenix Application
 Next, use the Helm chart provided in this repository to deploy the Phoenix application. The values in values.yaml are already configured to connect to the PostgreSQL database.
 
-```bash
+```sh
 NAMESPACE=stord
 helm install sre-app ./sre-app \
   --debug \
   --namespace $NAMESPACE \
-  --values ./sre-app/values.yaml```
+  --values ./sre-app/values.yaml
+  ```
 
 ### Validation
 Once the services are deployed, validate that everything is working correctly by following these steps.
@@ -59,8 +61,9 @@ psql postgresql://postgres:password@127.0.0.1:55432/sre-technical-challenge
 
 # Validate the Phoenix Application
 To verify that the Phoenix application is running, use kubectl port-forward to access the application in your browser.
-```bash 
-kubectl port-forward svc/sre-app-sre-technical-challenge 8080:80 --namespace stord```
+```sh 
+kubectl port-forward svc/sre-app-sre-technical-challenge 8080:80 --namespace stord
+```
 
 Once the service is forwarded, open your browser and visit:
 
