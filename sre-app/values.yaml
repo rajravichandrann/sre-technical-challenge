@@ -13,12 +13,12 @@ env:
   PHX_SERVER: true
 
 service:
-  type: ClusterIP     # Options: ClusterIP, NodePort, LoadBalancer
-  port: 80            # Service port to expose
+  type: ClusterIP     
+  port: 80          
 
 ingress:
   enabled: false
-  
+
 livenessProbe:
   httpGet:
     path: /_health
