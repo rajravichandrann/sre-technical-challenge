@@ -58,4 +58,4 @@ Todos page: http://localhost:8080/todos
 Health check: http://localhost:8080/_health
 
 # Reference image
-![Todos Page](./Desktop/sre-challenge.htm)
+![Todos Page](./images/sre-challenge.png)
