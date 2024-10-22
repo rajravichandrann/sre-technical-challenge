@@ -6,10 +6,10 @@ metadata:
     app.kubernetes.io/name: {{ include "sre-app.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
 spec:
-  type: {{ .Values.service.type }}  # Will use 'ClusterIP' from values.yaml
+  type: {{ .Values.service.type }}  
   ports:
-    - port: {{ .Values.service.port}}  # Expose port 80
-      targetPort: 8080                 # Forward to port 8080 in the pod
+    - port: {{ .Values.service.port}}  
+      targetPort: 8080                 
       protocol: TCP
       name: http
   selector:
