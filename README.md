@@ -60,8 +60,8 @@ psql postgresql://postgres:password@127.0.0.1:55432/sre-technical-challenge
 # Validate the Phoenix Application
 To verify that the Phoenix application is running, use kubectl port-forward to access the application in your browser.
 ```bash 
-kubectl port-forward svc/sre-app-sre-technical-challenge 8080:80 --namespace stord
-```
+kubectl port-forward svc/sre-app-sre-technical-challenge 8080:80 --namespace stord```
+
 Once the service is forwarded, open your browser and visit:
 
 Todos page: http://localhost:8080/todos
